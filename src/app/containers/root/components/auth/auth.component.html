@@ -1,0 +1,20 @@
+<ng-template #showForm>
+    <form class="form-inline" id="login-form" #loginForm="ngForm">
+        <input class="form-control form-control-sm" type="email" name="username" ngModel="admin@localhost" required
+            placeholder="username">
+        <input class="form-control form-control-sm" type="password" name="password" ngModel="admin" required
+            placeholder="password">
+        <button class="btn btn-sm btn-success" (click)="logIn(loginForm.value)">
+            log in
+        </button>
+    </form>
+    <button routerLink="/register" class="btn btn-info btn-sm ml-1">sign up</button>
+</ng-template>
+
+<button *ngIf="stateService.access | async; else showForm" class="btn btn-sm btn-danger" (click)="logOut()">
+    log out
+</button>
+<br>
+<div class="badge badge-info">
+    {{stateService.serverInfo|async}}
+</div>

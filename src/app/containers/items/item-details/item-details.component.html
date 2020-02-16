@@ -1,0 +1,6 @@
+<div class="jumbotron" *ngIf="data | async as item">
+    <h2>title: {{item.title}}</h2>
+    <h4>price: {{item.price}}</h4>
+    <img [src]="item.imgSrc" width="200">
+    <button class="btn btn-primary" (click)="goBack()" >back</button>
+</div>

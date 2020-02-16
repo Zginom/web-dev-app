@@ -1,0 +1,24 @@
+<form #searchForm="ngForm" id="search-form" class="card card-body">
+    <h4 class="card-title">
+        Filters
+        <button class="btn btn-primary btn-sm" (click)="clear()">clear</button>
+    </h4>
+
+    <div class="form-group" *ngFor="let control of controls" [ngSwitch]="control.tag">
+
+        <label [for]="control.name">
+            {{control.name | camelCaseToSign:' '}}
+        </label>
+
+        <input *ngSwitchCase="'INPUT_TEXT'" type="text" class="form-control" [id]="'search-by-' + control.name" [name]="control.name" ngModel>
+
+        <input *ngSwitchCase="'INPUT_NUMBER'" type="number" class="form-control" [id]="'search-by-' + control.name" [name]="control.name" ngModel>
+
+        <select *ngSwitchCase="'SELECT'" class="form-control" [id]="'search-by-' + control.name" [name]="control.name" [ngModel]="control.value">
+            <option *ngFor="let opt of control.options" [value]="opt">
+                {{opt}}
+            </option>
+        </select>
+
+    </div>
+</form>

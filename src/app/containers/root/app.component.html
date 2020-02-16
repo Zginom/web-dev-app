@@ -1,0 +1,25 @@
+<div class="container-fluid bg-light">
+    <div class="row pt-3 mb-3">
+        <div class="col-6">
+            <app-nav></app-nav>
+        </div>
+        <div class="col-3">
+            <app-auth></app-auth>
+        </div>
+        <div class="col-3">
+            xhr status:
+            <ng-template #loading>
+                <span class="badge badge-warning">
+                    ...active
+                </span>
+            </ng-template>
+            <span class="badge badge-success" *ngIf="!(unsaved$ | async); else loading">
+                inactive
+            </span>
+        </div>
+    </div>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+    <br>
+</div>

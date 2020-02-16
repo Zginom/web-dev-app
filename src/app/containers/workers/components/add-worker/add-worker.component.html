@@ -1,0 +1,23 @@
+<ng-template #content>
+    <h3 class="modal-header">new workers</h3>
+    <form [formGroup]="workersForm" id="add-worker-form" class="modal-body">
+        <div class="form-group">
+            <input class="form-control" placeholder="name" formControlName="name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="number" placeholder="phone" formControlName="phone">
+        </div>
+        <div class="form-group">
+            <select class="form-control" formControlName="category">
+                <option value="" disabled selected>category</option>
+                <option *ngFor="let opt of ['sales', 'support']" [value]="opt">{{opt}}</option>
+            </select>
+        </div>
+        <hr>
+        <button class="btn btn-sm btn-primary" [disabled]="!workersForm.valid" (click)="checkAndSend(workersForm)">
+            send
+        </button>
+    </form>
+</ng-template>
+
+<button class="btn btn-primary btn-sm" (click)="open(content)">add worker</button>

@@ -1,0 +1,11 @@
+$border-color: #999;
+
+.nav-tabs {
+    border-bottom:1px solid $border-color;
+    .nav-link {
+        &.active {
+            border-color: $border-color $border-color white;
+            
+        }
+    }
+}

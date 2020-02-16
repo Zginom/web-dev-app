@@ -1,0 +1,43 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">New item</h4>
+        <button type="button" class="close" aria-label="Close" (click)="openedModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form #f="ngForm" class="modal-body" id="add-item-form" (submit)="checkAndSend(addItemForm)"
+        [formGroup]="addItemForm">
+        <div class="form-group">
+            <select formControlName="category" class="form-control">
+                <option value="" disabled selected>category</option>
+                <option *ngFor="let opt of ['food', 'clothes']" [value]="opt">
+                    {{opt}}
+                </option>
+            </select>
+            <app-validator *ngIf="f.submitted" [errors]="addItemForm.get('category').errors"></app-validator>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="title" formControlName="title">
+            <app-validator *ngIf="f.submitted" [errors]="addItemForm.get('title').errors"></app-validator>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="number" placeholder="price" formControlName="price">
+            <app-validator *ngIf="f.submitted" [errors]="addItemForm.get('price').errors"></app-validator>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-9">
+                    <file-upload [url]="uploadUrl" (uploaded)="addItemForm.get('imgSrc').setValue($event)">
+                    </file-upload>
+                </div>
+                <div class="col-sm-3">
+                    <img [src]="addItemForm.get('imgSrc').value" width="50">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button class="btn btn-secondary">send item</button>
+    </form>
+</ng-template>
+
+<button class="btn btn-primary btn-sm" (click)="open(content)">add item</button>

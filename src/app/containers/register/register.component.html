@@ -1,0 +1,59 @@
+<div class="card card-body">
+
+    <h3>Create your account</h3>
+
+    <div class="row">
+        <form #f="ngForm" [formGroup]="registerForm" id="register-form" class="col-md-6">
+
+            <div class="form-group">
+                username/email
+                <input type="text" class="form-control" formControlName="username" name="username">
+                <app-validator *ngIf="f.submitted" [errors]="registerForm.get('username').errors"></app-validator>
+            </div>
+
+            <div class="form-group" formGroupName="passwordGroup">
+                <div class="row">
+                    <div class="col-6" *ngFor="let item of registerForm.get('passwordGroup').value | mapToIterable">
+                        {{item | camelCaseToSign:' '}}
+                        <input type="password" class="form-control" [formControlName]="item" [name]="item">
+                        <app-validator *ngIf="f.submitted" [errors]="registerForm.get('passwordGroup').get(item).errors"></app-validator>
+                    </div>
+                </div>
+                <app-validator *ngIf="f.submitted" [errors]="registerForm.get('passwordGroup').errors"></app-validator>
+            </div>
+
+            <div class="form-group">
+                birth date
+                <div class="form-inline">
+                    <input ngbDatepicker #d="ngbDatepicker" placeholder="yyyy-mm-dd" class="form-control" formControlName="birthDate" name="birthDate">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                            date
+                        </button>
+                    </div>
+                </div>
+                <app-validator *ngIf="f.submitted" [errors]="registerForm.get('birthDate').errors"></app-validator>
+            </div>
+
+            <div class="form-group" formGroupName="hobbies">
+                hobbies
+                <br>
+                <label class="label-checkbox" *ngFor="let item of registerForm.get('hobbies')['controls'] | mapToIterable">
+                    {{item}}
+                    <input type="checkbox" class="form-check" [placeholder]="item" [name]="item" [formControlName]="item">
+                </label>
+                <app-validator *ngIf="f.submitted" [errors]="registerForm.get('hobbies').errors"></app-validator>
+            </div>
+
+            <hr>
+
+            <button class="btn btn-primary" (click)="sendForm(f)">send me</button>
+
+            <div class="badge" [class.badge-success]="registerForm.valid" [class.badge-warning]="!registerForm.valid">
+                form valid: {{registerForm.valid}}
+            </div>
+        </form>
+
+        <pre class="col-md-6">{{registerForm.value | json}}</pre>
+    </div>
+</div>

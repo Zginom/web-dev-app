@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-sm-3">
+        <app-search [controls]="searchConfig.controls" (searchChange)="updateFilters($event)"></app-search>
+    </div>
+    <div class="col-sm-9">
+        <div class="card card-body" *ngIf="workers$ | async as workers">
+            <div class="d-inline-block">
+                <app-add-worker [itemAction]="workerAction"></app-add-worker>
+                <div class="badge badge-info ml-1">
+                    workers count: {{(workers | search:filters.value)?.length}}
+                </div>
+            </div>
+            <br>
+            <app-datagrid [data]="workers | search:filters.value" [config]="dataGridConfig" [itemAction]="workerAction">
+            </app-datagrid>
+        </div>
+    </div>
+</div>
